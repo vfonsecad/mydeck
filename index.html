@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Textual Analysis</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Textual Analysis">
+  <meta name="author" content="Valeria Fonseca Díaz / Álvaro Mauricio Montenegro Díaz">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="assets/img/logo_Unal_.jpg">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Textual Analysis</h1>
+    <h2>Using a Latent Regression Model</h2>
+    <p>Valeria Fonseca Díaz / Álvaro Mauricio Montenegro Díaz<br/>Bogotá, Colombia</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>What is this about?</h2>
+  </hgroup>
+  <article data-timings="">
+    <div class='build'>
+<img class="right" src="wordclouds.jpg" height=310px width=450px/>
+<img class="left" src="word_networks.gif" height=310px width=480px/>
+<h5 align="left"> 
+<br>
+Where is the analysis of the <code> baseline documents? </code> </h5>
+<h5 align="left"> 
+<br>
+Can we identify <code> potential general topics </code> and support our analysis from the baseline documents? </h5>
+</div>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Overall sketch</h2>
+  </hgroup>
+  <article data-timings="">
+    <div class='build'>
+<img  src="sketch1.jpg" alt="Words" height=260px width=400px/>
+<img   src="sketch2.jpg" alt="Clusters of words" height=260px width=400px/>
+<img  class="center" src="sketch3_1.png" alt="Topics" height=260px width=430px/>
+</div>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Text Corpus Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <div class='build'>
+<code> In order to present our method, we have chosen the following corpus 
+<br>
+<br>
+</code>
+<h5> 800 News articles about deaths in the USA <br> <code> Unit of analysis:</code> Body of the article
+<br>
+<br>
+</h5>
+<img class="center" src="headlines1.jpg" height=410px width=650px/>
+</div>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4">
+<hgroup>
+  <h2>Introduction</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul class = "build incremental">
+<li>Here we will present the use of a latent linear model to perform textual analysis. The main purpose is to <code>discover what topics occur</code> in a collection of documents</li>
+<li>The method involves a bayesian estimation of a <code>multivariate latent linear model</code> over a document-term matrix</li>
+<li>Topics will be calculated as vectors by grouping terms according to their estimated parameters</li>
+<li>Each of the documents will be associated to topics according to how correlated its estimated parameters and each topic vector are</li>
+</ul>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-5">
+<hgroup>
+  
+</hgroup>
+<article class = 'flexbox vcenter'>
+<div class="center">
+<h1> <font size=300> Language Processing Technique </font> </h1>
+</div>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Document-Term Matrix</h2>
+  </hgroup>
+  <article data-timings="">
+    <div class='build'>
+<p> <br> Articles were brought to <code> R </code> via <code> library(XML) </code> </p>
+<p> <code> R </code> Package <code> tm </code> provides a complete language processing techique which produces a document-term matrix </p> 
+<pre> <code class="r"> Westminster police spokeswoman Cheri Spottke says officers were called
+to a Savannah Suites hotel at about 7 p.m. Friday on reports of shots fired
+and found two people with gunshot wounds (...).</code></pre>
+<img class="center" src="dtm.png" height=140px width=780px/>
+  <p> <br> This binary matrix will be refered to as <span style="font-family: Times New Roman; font-size:100%; font-style:italic; "> <b>Y</b> = ( Y<sub>ij</sub> )<sub>N &times K</sub></span> ,   
+  <span style="font-family: Times New Roman; font-size:100%; font-style:italic; "> N </span>documents ,
+  <span style="font-family: Times New Roman; font-size:100%; font-style:italic; "> K </span>terms
+  </p>
+</div>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7">
+<hgroup>
+  
+</hgroup>
+<article class = 'flexbox vcenter'>
+<div class="center">
+<h1> <font size=50> Multidimensional 2-Parameter Normal Ogive Model <br><br> - M2PNO - </font> </h1>
+</div>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>M2PNO Model</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The model here considered is given by</p>
+
+<p>\[ P(Y_{ij}=1 | \boldsymbol{\theta}_i, \boldsymbol{\alpha}_j, \gamma_j)= \boldsymbol{\Phi}(\boldsymbol{\alpha}'_j\boldsymbol{\theta}_i-\gamma_j), \quad i=1,...,N \quad j=1,...,K\]</p>
+
+<ul class = "build incremental">
+<li>\(\boldsymbol{\Phi}(\cdot)\) is the cumulative distribution function of a standard normal random variable</li>
+<li>\(\boldsymbol{\theta}_i\) represents the \(i\)-th document \(\boldsymbol{d}\)-dimensional point</li>
+<li><p>\(\boldsymbol{\alpha}_j\) represents the \(j\)-th term vector in a \(\boldsymbol{d}\)-dimesional space</p></li>
+<li><p>The latent characteristic of the model comes from the fact that \(\boldsymbol{\theta}_i\) parameter is not observable </p></li>
+<li><h5> <code> The use of this model to perform textual analysis arises from the interpretation of parameters </code> $\boldsymbol{\theta}$ <code> and  </code> $\boldsymbol{\alpha}$ </h5></li>
+<li><p>The choice of \(\boldsymbol{d}\) is based upon Horn&#39;s technique from the document-term matrix</p></li>
+</ul>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Bayesian Estimation: Gibbs sampler</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<ul class = "build incremental">
+<li>Let us define \(\eta_{ij}=\boldsymbol{\alpha}'_j\boldsymbol{\theta}_i -\gamma_j\)</li>
+<li> \(P(Y_{ij}=1 | \boldsymbol{\theta}_i, \boldsymbol{\alpha}_j, \gamma_j)= \boldsymbol{\Phi}(\eta_{ij})=1-\boldsymbol{\Phi}(-\eta_{ij})=1-\boldsymbol{\Phi}_{Z}(0)\)</li>
+<li>New variable \(\mathbf{Z}\) provides \(P(Y_{ij}=1 | \cdot)=P(Z_{ij}>0| \cdot)\)</li>
+<li>Joint posterior distribution <br> \[ p(\boldsymbol{\theta}, \boldsymbol{\alpha}, \gamma, \mathbf{Z}|\mathbf{Y}) \propto f(\mathbf{Y}|\mathbf{Z})p(\mathbf{Z}|\boldsymbol{\theta}, \boldsymbol{\alpha}, \gamma)p(\boldsymbol{\theta})p(\boldsymbol{\alpha},\gamma) \]</li>
+<li><h5> <code> Gibbs Sampler: </code> Given the joint posterior distribution, sample from each conditional one at a time </h5></li>
+<li>We have derived this procedure in detail for this particular model in conjunction with our <code> R </code> algorithm. <code> (Montenegro, 2010), (Fox, 2010) </code></li>
+</ul>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+<div style='float:left;width:48%;' class='centered'>
+  
+</div>
+<div style='float:right;width:48%;'>
+  
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10">
+<hgroup>
+  
+</hgroup>
+<article class = 'flexbox vcenter'>
+<div class="center">
+<h1> <font size=50> Interpretation of M2PNO Model <br><br> Calculating topic vectors </font> </h1>
+</div>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Grouping terms</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img src="assets/fig/unnamed-chunk-1-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>It can be shown that \(\frac{\boldsymbol{\alpha}_j}{||\boldsymbol{\alpha}_j||}\) are directions in which \(\boldsymbol{\theta}_i\) values are best discriminated <code>(Reckase, 2009)</code></li>
+<li>When placing \(\boldsymbol{\alpha}_j\) vectors in a \(\boldsymbol{d}\)-dimensional space, such directions seem to be grouping around <code>few main directions</code></li>
+<li>These vectors are to be clustered via a hierarchical method taking <code>correlation</code> as the <code>disimilarity measure</code><br></li>
+<li><h4> Therefore, what we are doing is to cluster <code>words</code> to define some <code>topics</code> </h4></li>
+</ul>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Topic vectors</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li> A total of \(\boldsymbol{m}\) topics have been detected</li>
+<li><h5> From each of the terms clusters, <code>first eigenvector </code> \(\mathbf{t}_m\) will be the corresponding topic vector </h5></li>
+<li><code> Projection score </code> for documents \[\boldsymbol{\theta'}_i  \mathbf{t}_m\]</li>
+<li> <code> Projection score </code> for words  \[\boldsymbol{\alpha'}_j  \mathbf{t}_m\]</li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="assets/fig/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2"> </p>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13">
+<hgroup>
+  
+</hgroup>
+<article class = 'flexbox vcenter'>
+<div class="center">
+<h1> <font size=50> Gun Deaths Corpus Data <br><br> - Results - </font> </h1>
+</div>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-14">
+<hgroup>
+  <h2>Gun Deaths Topics</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<div class='build'>
+<img class="center" src="topicstable.jpg" height=520px width=880px/>
+</div>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-15">
+<hgroup>
+  <h2>Gun Deaths News Articles: Examples</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<div class='build'>
+<img class="center" src="results.jpg" height=520px width=880px/>
+</div>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-16">
+<hgroup>
+  <h2>Conclusions and future work</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul class = "build incremental">
+<li><code>Probit latent model</code> is a good alternative based on the type of input matrix</li>
+<li>This method can be conceived as a dimension reduction technique with the particularity that <code>each unit is to be explained by all of the thematic dimensions</code>, that is, all of the topics</li>
+<li>Most analyses are based on terms clustering methods to identify what we have called tendencies of textual data,
+but the <code>analysis over baseline documents</code> is not actually performed. In many fields of study, diferent evaluations of
+speech are needed so that the estimated score of each unit is a first approach to judge textual data</li>
+<li>As a future work, one of the aspects that can be optimized is to set a rule to choose the <code>number of dimensions to estimate the M2PNO</code> or, possibly, another method to detect such a number a priori</li>
+</ul>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-17">
+<hgroup>
+  <h2>Bibliography</h2>
+</hgroup>
+<article class = 'flexbox vcenter'>
+<ul class = "build incremental">
+<li><code>James H. Albert. Bayesian estimation of normal ogive item response curves using gibbs sampling. Journal of Educational Statistics, 17(3):20, 1992</code></li>
+<li><code>Jean-Paul Fox. Bayesian item response theory. Springer. 2010</code></li>
+<li><code>Alvaro Mauricio Montenegro Díaz. Muldimensional item response theory models where the ability has a latent linear structure. PhD Thesis. 2010</code></li>
+<li><code>Mark D. Reckase. Multidimensional item response theory. Springer. 2009</code></li>
+<li><code>C.A.W. Glas and A.A. Beguin. MCMC estimation and some model-fit analysis of multidimensional IRT models. Psychometrika. 66(4):21, 2001</code></li>
+</ul>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-18">
+<hgroup>
+  
+</hgroup>
+<article class = 'flexbox vcenter'>
+<div class="center">
+<h5> <font size=50> Check out our shiny app! <br><br> </font> </h5>
+<h1> <font size=50> - Thank you - </font>  </h1>
+</div>
+
+<p><footer> <font size=3 color='#928E8E'> Textual Analysis Using a Latent Regression Model</font> </footer>
+<header>
+<img src='logo_header.gif' height=60px width=130px/ style='float:left'/> 
+</header></p>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='What is this about?'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Overall sketch'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Text Corpus Data'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Introduction'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title=''>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Document-Term Matrix'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title=''>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='M2PNO Model'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Bayesian Estimation: Gibbs sampler'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title=''>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Grouping terms'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Topic vectors'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title=''>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Gun Deaths Topics'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Gun Deaths News Articles: Examples'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Conclusions and future work'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Bibliography'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title=''>
+         18
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
